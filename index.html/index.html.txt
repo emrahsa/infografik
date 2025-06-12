@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sağdıç Torna - Dijital Dönüşüm İnfografiği</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F4F4F9;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .flow-line::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 100%;
+            height: 2rem;
+            border-left: 2px dashed #9CA3AF;
+        }
+        .flow-line-horizontal::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            width: 2rem;
+            border-top: 2px dashed #9CA3AF;
+        }
+        .arrow-down::after {
+            content: '▼';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -1.25rem;
+            color: #00A6FB;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    
+    <div class="container mx-auto p-4 md:p-8">
+
+        
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#0B2D59] mb-2">Bir Geleneksel İşletmenin Dijital Dönüşüm Yolculuğu</h1>
+            <p class="text-xl text-[#DC0073] font-semibold">Sağdıç Torna: Endüstri 4.0 Uygulama Senaryosu</p>
+            <div class="mt-4 text-base text-gray-700">
+                <p>Hazırlayan: <span class="font-semibold">Emrah Sağdıç</span></p>
+                <p>Okul: <span class="font-semibold">İstanbul Aydın Üniversitesi</span></p>
+                <p>Numara: <span class="font-semibold">B2105.060030</span></p>
+            </div>
+        </header>
+
+        
+        <main class="space-y-12">
+            
+            <section id="challenge" class="bg-white rounded-xl shadow-lg p-6 md:p-8 ring-1 ring-gray-200">
+                <h2 class="text-3xl font-bold text-[#0B2D59] mb-4 text-center">Mevcut Durum: Karşılaşılan Engeller</h2>
+                <p class="text-center max-w-3xl mx-auto text-gray-600 mb-8">
+                    Sağdıç Torna, köklü bir geçmişe sahip olmasına rağmen, ağırlıklı olarak manuel ilerleyen süreçleri nedeniyle modern pazarın gerektirdiği hız ve verimlilikten uzaktı. Bu durum, operasyonel maliyetleri artırıyor ve rekabet gücünü zayıflatıyordu.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="bg-blue-50 p-6 rounded-lg">
+                        <div class="text-5xl font-extrabold text-[#00A6FB]">7%</div>
+                        <h3 class="text-lg font-semibold mt-2 text-gray-700">Hatalı Üretim Oranı</h3>
+                        <p class="text-sm text-gray-500 mt-1">Yüksek fire oranı, maliyetleri ve kaynak israfını artırıyordu.</p>
+                    </div>
+                    <div class="bg-pink-50 p-6 rounded-lg">
+                        <div class="text-5xl font-extrabold text-[#DC0073]">Manuel</div>
+                        <h3 class="text-lg font-semibold mt-2 text-gray-700">Sipariş & Üretim Takibi</h3>
+                        <p class="text-sm text-gray-500 mt-1">Süreçlerin elle takibi, hatalara ve verimsizliğe yol açıyordu.</p>
+                    </div>
+                    <div class="bg-yellow-50 p-6 rounded-lg">
+                        <div class="text-5xl font-extrabold text-[#FBB03B]">Gecikme</div>
+                        <h3 class="text-lg font-semibold mt-2 text-gray-700">Teslimat Performansı</h3>
+                        <p class="text-sm text-gray-500 mt-1">Üretim planlamasındaki zorluklar, müşteri memnuniyetsizliğine neden oluyordu.</p>
+                    </div>
+                </div>
+            </section>
+            
+            
+            <section id="investment" class="bg-white rounded-xl shadow-lg p-6 md:p-8 ring-1 ring-gray-200">
+                <h2 class="text-3xl font-bold text-[#0B2D59] mb-4 text-center">Stratejik Yatırım Planı</h2>
+                <p class="text-center max-w-3xl mx-auto text-gray-600 mb-8">
+                    Dijital dönüşüm, Sağdıç Torna'nın geleceği için akıllı bir yatırımdır. Toplamda 29.200 USD'lik bu yatırım, operasyonel verimliliği artırarak ve hata oranlarını düşürerek kısa sürede geri dönüş sağlayacaktır.
+                </p>
+                <div class="chart-container h-[400px] md:h-[450px]">
+                    <canvas id="investmentChart"></canvas>
+                </div>
+            </section>
+            
+            
+            <section id="roadmap" class="bg-white rounded-xl shadow-lg p-6 md:p-8 ring-1 ring-gray-200">
+                <h2 class="text-3xl font-bold text-[#0B2D59] mb-8 text-center">12 Haftalık Dönüşüm Yol Haritası</h2>
+                <p class="text-center max-w-3xl mx-auto text-gray-600 mb-12">
+                    Dönüşüm süreci, yönetilebilir adımlara bölünmüş, net ve aşamalı bir planla hayata geçirilecektir. Her aşama, bir sonrakinin temelini oluşturarak sağlam bir ilerleme sağlayacaktır.
+                </p>
+                <div class="relative flex flex-col md:flex-row justify-between w-full max-w-5xl mx-auto">
+                    <div class="absolute top-4 md:top-1/2 left-0 md:left-4 right-0 md:right-4 h-1 md:h-auto md:w-auto md:h-1 bg-[#00A6FB] -translate-y-1/2"></div>
+                    
+                    <div class="flex md:flex-col items-center text-center relative z-10 mb-8 md:mb-0">
+                        <div class="w-8 h-8 rounded-full bg-[#00A6FB] border-4 border-white flex items-center justify-center text-white font-bold">1</div>
+                        <div class="ml-4 md:ml-0 md:mt-4">
+                            <h3 class="font-bold text-[#0B2D59]">Analiz</h3>
+                            <p class="text-sm text-gray-500">2 Hafta</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex md:flex-col items-center text-center relative z-10 mb-8 md:mb-0">
+                        <div class="w-8 h-8 rounded-full bg-[#00A6FB] border-4 border-white flex items-center justify-center text-white font-bold">2</div>
+                        <div class="ml-4 md:ml-0 md:mt-4">
+                            <h3 class="font-bold text-[#0B2D59]">Donanım Kurulumu</h3>
+                            <p class="text-sm text-gray-500">4 Hafta</p>
+                        </div>
+                    </div>
+
+                    <div class="flex md:flex-col items-center text-center relative z-10 mb-8 md:mb-0">
+                        <div class="w-8 h-8 rounded-full bg-[#00A6FB] border-4 border-white flex items-center justify-center text-white font-bold">3</div>
+                        <div class="ml-4 md:ml-0 md:mt-4">
+                            <h3 class="font-bold text-[#0B2D59]">Yazılım & Test</h3>
+                            <p class="text-sm text-gray-500">3 Hafta</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex md:flex-col items-center text-center relative z-10 mb-8 md:mb-0">
+                        <div class="w-8 h-8 rounded-full bg-[#00A6FB] border-4 border-white flex items-center justify-center text-white font-bold">4</div>
+                        <div class="ml-4 md:ml-0 md:mt-4">
+                            <h3 class="font-bold text-[#0B2D59]">Eğitim</h3>
+                            <p class="text-sm text-gray-500">2 Hafta</p>
+                        </div>
+                    </div>
+
+                    <div class="flex md:flex-col items-center text-center relative z-10">
+                        <div class="w-8 h-8 rounded-full bg-[#00A6FB] border-4 border-white flex items-center justify-center text-white font-bold">5</div>
+                        <div class="ml-4 md:ml-0 md:mt-4">
+                            <h3 class="font-bold text-[#0B2D59]">Pilot Uygulama</h3>
+                            <p class="text-sm text-gray-500">1 Hafta</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            
+            <section id="workflow" class="bg-white rounded-xl shadow-lg p-6 md:p-8 ring-1 ring-gray-200">
+                <h2 class="text-3xl font-bold text-[#0B2D59] mb-8 text-center">İş Akışı: Öncesi ve Sonrası</h2>
+                <p class="text-center max-w-3xl mx-auto text-gray-600 mb-12">
+                    Dijitalleşme, Sağdıç Torna'nın dağınık ve hataya açık manuel iş akışını, uçtan uca entegre, şeffaf ve verimli bir dijital ekosisteme dönüştürecektir.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
+                    <div>
+                        <h3 class="text-2xl font-bold text-center text-red-600 mb-6">ÖNCESİ: Manuel Süreç</h3>
+                        <div class="space-y-4">
+                             <div class="relative bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg flow-line arrow-down">
+                                <h4 class="font-bold">Sipariş (Telefon/E-posta)</h4>
+                                <p class="text-sm text-gray-600">Manuel kayıt ve kağıt fiş oluşturma.</p>
+                            </div>
+                            <div class="relative bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg flow-line arrow-down">
+                                <h4 class="font-bold">Üretim Planlama</h4>
+                                <p class="text-sm text-gray-600">Elle yapılan, tecrübeye dayalı planlama.</p>
+                            </div>
+                             <div class="relative bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg flow-line arrow-down">
+                                <h4 class="font-bold">Kalite Kontrol</h4>
+                                <p class="text-sm text-gray-600">Gözle yapılan, hataya açık kontrol.</p>
+                            </div>
+                             <div class="relative bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
+                                <h4 class="font-bold">Teslimat</h4>
+                                <p class="text-sm text-gray-600">Gecikmeler ve yetersiz bilgilendirme.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-bold text-center text-green-600 mb-6">SONRASI: Dijital Ekosistem</h3>
+                        <div class="space-y-4">
+                            <div class="relative bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg flow-line arrow-down">
+                                <h4 class="font-bold">Bulut Yazılımı (Sipariş & Planlama)</h4>
+                                <p class="text-sm text-gray-600">Merkezi, otomatik sipariş yönetimi.</p>
+                            </div>
+                            <div class="relative bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg flow-line arrow-down">
+                                <h4 class="font-bold">IoT & Cobot Destekli Üretim</h4>
+                                <p class="text-sm text-gray-600">Anlık veri akışı ve otomasyon.</p>
+                            </div>
+                             <div class="relative bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg flow-line arrow-down">
+                                <h4 class="font-bold">AI Destekli Kalite Kontrol</h4>
+                                <p class="text-sm text-gray-600">Otomatik, %99+ doğrulukla hata tespiti.</p>
+                            </div>
+                             <div class="relative bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                <h4 class="font-bold">Hızlı ve Şeffaf Teslimat</h4>
+                                <p class="text-sm text-gray-600">Zamanında sevkiyat ve anlık takip.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            
+            <section id="outcomes" class="bg-white rounded-xl shadow-lg p-6 md:p-8 ring-1 ring-gray-200">
+                <h2 class="text-3xl font-bold text-[#0B2D59] mb-4 text-center">Beklenen Sonuçlar ve Hedefler</h2>
+                <p class="text-center max-w-3xl mx-auto text-gray-600 mb-8">
+                    Bu dönüşümle, Sağdıç Torna'nın operasyonel verimliliğinde ve pazar konumunda devrim niteliğinde iyileşmeler hedeflenmektedir. Temel performans göstergelerindeki değişim, başarının en net kanıtı olacaktır.
+                </p>
+                <div class="chart-container h-[400px]">
+                    <canvas id="outcomesChart"></canvas>
+                </div>
+            </section>
+
+        </main>
+
+        
+        <footer class="text-center mt-12 pt-8 border-t border-gray-200">
+            <p class="text-gray-500">&copy; 2025 Sağdıç Torna Dijital Dönüşüm Projesi. Tüm hakları saklıdır.</p>
+            <p class="text-xs text-gray-400 mt-2">Bu infografik, Canvas AI tarafından oluşturulmuştur.</p>
+        </footer>
+
+    </div>
+    
+    <script>
+        const processLabel = (label) => {
+            if (label.length > 16) {
+                const words = label.split(' ');
+                let currentLine = '';
+                const lines = [];
+                for (const word of words) {
+                    if ((currentLine + ' ' + word).trim().length > 16) {
+                        lines.push(currentLine);
+                        currentLine = word;
+                    } else {
+                        currentLine = (currentLine + ' ' + word).trim();
+                    }
+                }
+                lines.push(currentLine);
+                return lines;
+            }
+            return label;
+        };
+        
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+              return label.join(' ');
+            }
+            return label;
+        };
+
+        const sharedChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            family: 'Inter',
+                            size: 12,
+                        },
+                        color: '#333',
+                        padding: 20
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleFont: {
+                        family: 'Inter',
+                        size: 14,
+                        weight: 'bold',
+                    },
+                    bodyFont: {
+                        family: 'Inter',
+                        size: 12,
+                    },
+                    padding: 10,
+                    cornerRadius: 4,
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            }
+        };
+        
+        const investmentData = {
+            labels: [
+                processLabel('Kolaboratif Robot (Cobot)'),
+                processLabel('Yapay Zeka & Kamera'),
+                processLabel('Eğitim'),
+                processLabel('IoT Sensörleri'),
+                processLabel('Bulut Yazılımı (Yıllık)')
+            ],
+            datasets: [{
+                label: 'Yatırım Maliyeti (USD)',
+                data: [18000, 4500, 3000, 2500, 1200],
+                backgroundColor: [
+                    '#00A6FB', 
+                    '#DC0073', 
+                    '#FBB03B', 
+                    '#8DC63F', 
+                    '#7B2CBF'
+                ],
+                borderColor: '#FFFFFF',
+                borderWidth: 2,
+                hoverOffset: 4
+            }]
+        };
+
+        const investmentCtx = document.getElementById('investmentChart').getContext('2d');
+        new Chart(investmentCtx, {
+            type: 'doughnut',
+            data: investmentData,
+            options: {
+                ...sharedChartOptions,
+                cutout: '60%',
+                plugins: {
+                    ...sharedChartOptions.plugins,
+                    title: {
+                        display: true,
+                        text: 'İlk Yıl Toplam Yatırım: 29,200 USD',
+                        font: { size: 18, weight: 'bold', family: 'Inter' },
+                        color: '#0B2D59',
+                        padding: {
+                            top: 10,
+                            bottom: 20
+                        }
+                    }
+                }
+            }
+        });
+
+        
+        const outcomesData = {
+            labels: [processLabel('Hata Oranı (%)'), processLabel('Teslimat Gecikmesi (Gün)'), processLabel('Müşteri Memnuniyeti (%)')],
+            datasets: [
+                {
+                    label: 'Dönüşüm Öncesi',
+                    data: [7, 5, 65],
+                    backgroundColor: 'rgba(220, 0, 115, 0.6)',
+                    borderColor: '#DC0073',
+                    borderWidth: 2,
+                    borderRadius: 4
+                },
+                {
+                    label: 'Dönüşüm Sonrası Hedef',
+                    data: [1, 0, 95],
+                    backgroundColor: 'rgba(0, 166, 251, 0.6)',
+                    borderColor: '#00A6FB',
+                    borderWidth: 2,
+                    borderRadius: 4
+                }
+            ]
+        };
+
+        const outcomesCtx = document.getElementById('outcomesChart').getContext('2d');
+        new Chart(outcomesCtx, {
+            type: 'bar',
+            data: outcomesData,
+            options: {
+                ...sharedChartOptions,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: '#E5E7EB'
+                        },
+                        ticks: {
+                            color: '#333'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#333'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
